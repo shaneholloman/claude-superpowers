@@ -134,5 +134,6 @@ MIT
 
 ## Credits
 
-- **Ralph Wiggum Technique:** Geoffrey Huntley
-- **Claude Code:** Anthropic
+- **Ralph Wiggum Technique:** [Geoffrey Huntley](https://x.com/GeoffreyHuntley)
+- **Claude Code:** [Anthropic](https://github.com/anthropics)
+- Inspired by **Boris Chern's X post**: https://x.com/bcherny/status/2004887829252317325
