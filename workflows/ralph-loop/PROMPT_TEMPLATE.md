@@ -7,12 +7,14 @@
 Ultrathink and [DESCRIBE YOUR TASK HERE].
 
 ## Skills Check (Optional)
+
 BEFORE DOING ANYTHING ELSE:
 1. List the skills you found in .claude/skills/
 2. Confirm you read each SKILL.md file
 3. Summarize the key methodology from each skill in 1-2 sentences
 
 ## Required Skills (Optional)
+
 If using custom skills, list them here:
 1. production-readiness skill - For conducting audits and scoring
 2. claude-code-optimizer skill - For EPCC workflow and context management
@@ -31,6 +33,7 @@ Read each skill's SKILL.md before starting.
 - PROGRESS.md (deliverable - DO NOT DELETE)
 - GIT_COMMANDS.md (deliverable - DO NOT DELETE)
 - .claude/RALPH_PROMPT.md (this prompt file - DO NOT DELETE)
+- CLAUDE.md (project context file - DO NOT DELETE)
 - README.md
 - [Add other important files]
 
@@ -55,7 +58,14 @@ For each iteration:
 - Explore: [What to examine]
 - Plan: [How to approach]
 - Code: [What to implement]
-- Commit: Add git commands to GIT_COMMANDS.md
+- Commit: APPEND git commands to GIT_COMMANDS.md under "## Iteration N" header
+
+**GIT_COMMANDS.md Rules:**
+- Read existing GIT_COMMANDS.md first
+- Add new section: `## Iteration N - [timestamp]`
+- APPEND new commands below that header
+- NEVER delete or overwrite previous iteration commands
+- ALL commit messages MUST be 3 words or less
 
 After each fix:
 1. Update PROGRESS.md with what was done
@@ -69,7 +79,7 @@ After each fix:
 Update these files throughout:
 - **AUDIT_REPORT.md**: [Purpose]
 - **PROGRESS.md**: Running log of work done each iteration
-- **GIT_COMMANDS.md**: All git commands for human to run locally
+- **GIT_COMMANDS.md**: All git commands for human to run locally (APPEND ONLY)
 - **[Other files]**: [Purpose]
 
 ---
@@ -78,7 +88,8 @@ Update these files throughout:
 
 1. NEVER execute git commands - only write them to GIT_COMMANDS.md
 2. ALL commit messages MUST be 3 words or less
-3. [Add your own rules]
+3. APPEND to GIT_COMMANDS.md - NEVER overwrite or replace existing content
+4. [Add your own rules]
 
 ---
 

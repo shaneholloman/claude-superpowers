@@ -34,6 +34,16 @@ A fix exists (PR #58) but hasn't been merged.
 
 ## The Bash Solution
 
+### Features
+
+| Feature | Description |
+|---------|-------------|
+| **Timing Stats** | Elapsed time, avg per iteration, estimated remaining |
+| **CLAUDE.md Integration** | Automatically includes project context if present |
+| **Completion Detection** | Stops when `<promise>` tag detected |
+| **Safety Checks** | Stops if prompt file gets deleted |
+| **Pretty Output** | Clear iteration headers with timestamps |
+
 ### How It Works
 
 ```
@@ -42,14 +52,44 @@ A fix exists (PR #58) but hasn't been merged.
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
 │   while iterations < max:                               │
-│       1. Read .claude/RALPH_PROMPT.md                   │
-│       2. Pass to: claude -p --dangerously-skip-perms    │
-│       3. Capture output                                 │
-│       4. Check for completion promise                   │
-│       5. If found → exit success                        │
-│       6. If not → loop again                            │
+│       1. Read CLAUDE.md (if exists)                     │
+│       2. Read .claude/RALPH_PROMPT.md                   │
+│       3. Combine and pass to Claude                     │
+│       4. Capture output, show timing stats              │
+│       5. Check for completion promise                   │
+│       6. If found → exit success                        │
+│       7. If not → loop again                            │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
+```
+
+### Sample Output
+
+```
+╔═══════════════════════════════════════════════════════════╗
+║           RALPH LOOP - Autonomous Development             ║
+╚═══════════════════════════════════════════════════════════╝
+
+Max iterations: 50
+Prompt file: .claude/RALPH_PROMPT.md
+CLAUDE.md: Found ✓
+Started at: 2025-12-29 11:45:00
+Press Ctrl+C to stop
+
+═══════════════════════════════════════════════════════════
+  ITERATION 3 / 50  •  12:02:15
+───────────────────────────────────────────────────────────
+├─ Elapsed: 00:17:15
+├─ Avg per iteration: 00:05:45
+├─ Est. remaining: 04:30:15
+└─ Est. total: 04:47:30
+═══════════════════════════════════════════════════════════
+
+[Claude's output here...]
+
+───────────────────────────────────────────────────────────
+  Iteration 3 completed in 00:06:12
+───────────────────────────────────────────────────────────
 ```
 
 ### Key Discovery
@@ -77,7 +117,18 @@ cp ralph-loop.sh /path/to/your/project/
 cp PROMPT_TEMPLATE.md /path/to/your/project/.claude/RALPH_PROMPT.md
 ```
 
-### 2. Edit the Prompt
+### 2. (Optional) Create CLAUDE.md
+
+Run `/init` in Claude Code to generate a `CLAUDE.md` file, or create one manually:
+
+```bash
+# In your project directory, start Claude Code and run:
+/init
+```
+
+The script will automatically include `CLAUDE.md` content if it exists.
+
+### 3. Edit the Prompt
 
 Customize `.claude/RALPH_PROMPT.md` for your task. Key sections:
 
@@ -85,7 +136,7 @@ Customize `.claude/RALPH_PROMPT.md` for your task. Key sections:
 - **Files to KEEP:** Prevent accidental deletion of deliverables
 - **Critical rules:** Your constraints (e.g., no git execution)
 
-### 3. Run
+### 4. Run
 
 ```bash
 cd /path/to/your/project
@@ -93,7 +144,7 @@ chmod +x ralph-loop.sh
 ./ralph-loop.sh 50  # 50 iterations max
 ```
 
-### 4. Monitor
+### 5. Monitor
 
 ```bash
 # Check if Claude is running (in another terminal)
@@ -109,7 +160,7 @@ Ctrl+C
 
 | File | Purpose |
 |------|---------|
-| `ralph-loop.sh` | The loop script |
+| `ralph-loop.sh` | The loop script with timing stats |
 | `PROMPT_TEMPLATE.md` | Template for your task prompt |
 | `README.md` | This documentation |
 
@@ -133,12 +184,26 @@ Add deliverable files to the "keep" list so they don't get deleted:
 Files to KEEP (do not delete):
 - AUDIT_REPORT.md (deliverable - DO NOT DELETE)
 - PROGRESS.md (deliverable - DO NOT DELETE)
+- GIT_COMMANDS.md (deliverable - DO NOT DELETE)
 - .claude/RALPH_PROMPT.md (this prompt file - DO NOT DELETE)
+- CLAUDE.md (project context - DO NOT DELETE)
 ```
 
 ### Store Prompt Safely
 
 Put your prompt in `.claude/RALPH_PROMPT.md` — files in `.claude/` are less likely to be caught in cleanup operations.
+
+### GIT_COMMANDS.md Append Rule
+
+**Critical:** Claude tends to overwrite files. Add this to your prompt:
+
+```markdown
+## Critical Rules
+3. APPEND to GIT_COMMANDS.md - NEVER overwrite or replace existing content
+   - Read existing GIT_COMMANDS.md first
+   - Add new commands under "## Iteration N" header
+   - Preserve all previous iteration commands
+```
 
 ### Clear Completion Criteria
 
@@ -166,7 +231,7 @@ REQUIRED SKILLS - You MUST use these throughout this task:
 Read each skill's SKILL.md before starting.
 ```
 
-Skills should be in your project's `.claude/skills/` directory.
+Skills should be in your project's `.claude/skills/` directory. See the [skills folder](../../skills/) for available skills.
 
 ---
 
@@ -194,6 +259,14 @@ Claude is waiting for permission approval. Add `--dangerously-skip-permissions`:
 
 ```bash
 claude -p --dangerously-skip-permissions "$(cat $PROMPT_FILE)"
+```
+
+### GIT_COMMANDS.md Gets Overwritten Each Iteration
+
+Add the append rule to your prompt's Critical Rules section:
+
+```markdown
+3. APPEND to GIT_COMMANDS.md - NEVER overwrite existing content
 ```
 
 ### Verifying Skills Are Loaded
@@ -228,6 +301,8 @@ Start with fewer iterations for testing.
 | Cancel command | Broken | Ctrl+C works |
 | Session isolation | Hijacks all | One terminal |
 | macOS/zsh support | Parse errors | Works |
+| Timing stats | ❌ | ✅ |
+| CLAUDE.md integration | ❌ | ✅ |
 | Customization | Limited | Full control |
 
 ---
