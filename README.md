@@ -61,10 +61,17 @@ Nine specialized agents for different development tasks:
 
 ### Git Executor Identity
 
-The `git-executor` agent is configured with:
-- **Name:** Marc Johnson
-- **Email:** mjohnson518@users.noreply.github.com
-- **Commit Messages:** 3 words or less, NO AI mentions
+The `git-executor` agent enforces commit standards. **Configure your identity:**
+
+```bash
+# Set your git identity (required before first use)
+git config user.name "Your Name"
+git config user.email "your-email@example.com"
+```
+
+**Commit Rules:**
+- Maximum 3 words per commit message
+- NO mentions of: Claude, AI, automated, generated, bot
 
 See [agents/ORCHESTRATION.md](./agents/ORCHESTRATION.md) for workflow diagrams.
 

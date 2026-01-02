@@ -192,11 +192,12 @@ These agents can run in parallel:
 
 ## Git Identity Configuration
 
-**CRITICAL**: The `git-executor` agent MUST use:
+**IMPORTANT**: The `git-executor` agent uses your locally configured git identity.
 
-```
-Name:  Marc Johnson
-Email: mjohnson518@users.noreply.github.com
+Configure before use:
+```bash
+git config user.name "Your Name"
+git config user.email "your-email@example.com"
 ```
 
 Commit message rules:

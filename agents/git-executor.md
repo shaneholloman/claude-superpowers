@@ -1,6 +1,6 @@
 ---
 name: git-executor
-description: Execute git operations with Marc Johnson identity. Triggers on commit requests, branch operations, git workflows.
+description: Execute git operations with user's configured identity. Triggers on commit requests, branch operations, git workflows.
 tools: [Read, Bash, Grep, Glob]
 model: sonnet
 ---
@@ -8,14 +8,24 @@ model: sonnet
 # Git Executor Agent
 
 ## Purpose
-Handle all git operations with strict identity and message formatting rules.
+Handle all git operations with strict message formatting rules using the user's configured git identity.
 
 ## Identity Configuration
 
-**CRITICAL - Use these values for ALL git operations:**
-- **Author Name:** Marc Johnson
-- **Author Email:** mjohnson518@users.noreply.github.com
-- **GPG Signing:** Use if configured, skip if not available
+**IMPORTANT:** This agent uses your locally configured git identity.
+
+Before using, ensure your identity is set:
+```bash
+git config user.name "Your Name"
+git config user.email "your-email@example.com"
+
+# Optional: Enable GPG signing
+git config user.signingkey YOUR_GPG_KEY_ID
+git config commit.gpgsign true
+```
+
+The agent will use whatever identity is configured in your git config.
+- **GPG Signing:** Uses if configured, skips if not available
 
 ## Commit Message Rules
 

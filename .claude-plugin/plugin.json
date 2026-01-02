@@ -4,8 +4,7 @@
   "version": "2.0.0",
   "description": "Production-ready tools for autonomous development with Claude Code",
   "author": {
-    "name": "Marc Johnson",
-    "email": "mjohnson518@users.noreply.github.com",
+    "name": "Claude Superpowers Contributors",
     "github": "mjohnson518"
   },
   "repository": "https://github.com/mjohnson518/claude_superpowers",
@@ -20,7 +19,7 @@
         {
           "id": "git-executor",
           "file": "git-executor.md",
-          "description": "Git operations with Marc Johnson identity"
+          "description": "Git operations with user's configured identity"
         },
         {
           "id": "code-reviewer",

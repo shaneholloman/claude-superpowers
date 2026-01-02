@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **debugger** - Systematic bug investigation and root cause analysis
 - **docs-writer** - Technical documentation generation
 - **test-runner** - Test, lint, and build validation
-- **git-executor** - Git operations with strict identity (Marc Johnson)
+- **git-executor** - Git operations with user's configured identity
 - **refactorer** - Code structure improvements without behavior changes
 - **test-architect** - Comprehensive test strategy design
 
