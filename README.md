@@ -69,10 +69,6 @@ git config user.name "Your Name"
 git config user.email "your-email@example.com"
 ```
 
-**Commit Rules:**
-- Maximum 3 words per commit message
-- NO mentions of: Claude, AI, automated, generated, bot
-
 See [agents/ORCHESTRATION.md](./agents/ORCHESTRATION.md) for workflow diagrams.
 
 ---
