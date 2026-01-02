@@ -1,0 +1,51 @@
+{
+  "$schema": "https://claude.ai/schemas/hooks.json",
+  "version": "1.0.0",
+  "description": "Claude Superpowers automation hooks",
+  "logDirectory": ".claude/logs",
+  "hooks": [
+    {
+      "name": "security-scan",
+      "description": "Scan for secrets and credentials before file changes",
+      "event": "PreToolUse",
+      "tools": ["Write", "Edit"],
+      "script": "./scripts/security-scan.py",
+      "enabled": true,
+      "blocking": true,
+      "timeout": 30000
+    },
+    {
+      "name": "file-protection",
+      "description": "Protect sensitive files from modification",
+      "event": "PreToolUse",
+      "tools": ["Write", "Edit"],
+      "script": "./scripts/file-protection.sh",
+      "enabled": true,
+      "blocking": true,
+      "timeout": 5000
+    }
+  ],
+  "protectedPatterns": [
+    ".env",
+    ".env.*",
+    "*.pem",
+    "*.key",
+    ".git/**",
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-lock.yaml",
+    "Cargo.lock",
+    "poetry.lock",
+    "credentials.json",
+    "secrets.json"
+  ],
+  "secretPatterns": [
+    "(?i)(api[_-]?key|apikey)['\"]?\\s*[:=]\\s*['\"]?[a-zA-Z0-9]{20,}",
+    "(?i)(secret|password|passwd|pwd)['\"]?\\s*[:=]\\s*['\"]?[^'\"\\s]{8,}",
+    "AKIA[0-9A-Z]{16}",
+    "-----BEGIN (RSA |EC |DSA )?PRIVATE KEY-----",
+    "ghp_[a-zA-Z0-9]{36}",
+    "sk-[a-zA-Z0-9]{48}",
+    "xox[baprs]-[a-zA-Z0-9-]{10,}"
+  ]
+}

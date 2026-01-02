@@ -1,128 +1,275 @@
-# Claude Superpowers 🚀
+# Claude Superpowers
 
-A collection of custom skills, workflows, and techniques to supercharge Claude Code for autonomous development.
+Production-ready tools for autonomous development with Claude Code.
 
 ---
 
 ## What's Inside
 
-### 📁 Skills
-Custom Claude Code skills that provide specialized methodologies:
-
-| Skill | Purpose |
-|-------|---------|
-| [production-readiness](./skills/production-readiness/) | Comprehensive codebase auditing with standardized scoring |
-| [claude-code-optimizer](./skills/claude-code-optimizer/) | EPCC workflow pattern for structured development |
-| [sprint-orchestrator](./skills/sprint-orchestrator/) | Task management and progress tracking |
-
-### 📁 Workflows
-Autonomous development patterns and scripts:
-
-| Workflow | Purpose |
-|----------|---------|
-| [Ralph Loop](./workflows/ralph-loop/) | Autonomous iterative development loop (bash workaround for broken plugin) |
+| Component | Count | Description |
+|-----------|-------|-------------|
+| [Agents](#agents) | 9 | Specialized AI agents for different tasks |
+| [Skills](#skills) | 7 | Methodology guides and knowledge domains |
+| [Commands](#commands) | 4 | Output style modes |
+| [Hooks](#hooks) | 2 | Automation triggers |
+| [Workflows](#workflows) | 1 | Ralph Loop autonomous iteration |
 
 ---
 
 ## Quick Start
 
-### Installing Skills
-
-Copy skills to your project's `.claude/skills/` directory:
+### Option 1: Plugin Installation
 
 ```bash
-# Clone this repo
+# Clone the repo
 git clone https://github.com/mjohnson518/claude_superpowers.git
 
-# Copy skills to your project
+# Install as a plugin (coming soon)
+claude plugins install ./claude_superpowers
+```
+
+### Option 2: Manual Copy
+
+```bash
+# Clone the repo
+git clone https://github.com/mjohnson518/claude_superpowers.git
+
+# Copy to your project's .claude directory
 cp -r claude_superpowers/skills/* /path/to/your/project/.claude/skills/
-```
-
-Or copy individual skills:
-
-```bash
-cp -r claude_superpowers/skills/production-readiness /path/to/your/project/.claude/skills/
-```
-
-### Using the Ralph Loop
-
-```bash
-# Copy the workflow files
-cp claude_superpowers/workflows/ralph-loop/ralph-loop.sh /path/to/your/project/
-cp claude_superpowers/workflows/ralph-loop/PROMPT_TEMPLATE.md /path/to/your/project/.claude/RALPH_PROMPT.md
-
-# Edit the prompt for your task
-nano /path/to/your/project/.claude/RALPH_PROMPT.md
-
-# Run the loop
-cd /path/to/your/project
-chmod +x ralph-loop.sh
-./ralph-loop.sh 50
+cp -r claude_superpowers/agents/* /path/to/your/project/.claude/agents/
+cp -r claude_superpowers/commands/* /path/to/your/project/.claude/commands/
+cp -r claude_superpowers/hooks/* /path/to/your/project/.claude/hooks/
 ```
 
 ---
 
-## Skills Deep Dive
+## Agents
 
-### production-readiness
+Nine specialized agents for different development tasks:
 
-A comprehensive audit framework that evaluates codebases across 15 dimensions:
+| Agent | Purpose | Trigger Keywords |
+|-------|---------|------------------|
+| **orchestrator** | Coordinate complex multi-step tasks | "improve", "refactor", large features |
+| **code-reviewer** | Quality assessment (0-10 scoring) | "review", "check quality", before commit |
+| **security-auditor** | OWASP-based vulnerability detection | "security scan", "audit", auth changes |
+| **debugger** | Root cause analysis | "bug", "error", "not working" |
+| **docs-writer** | Documentation generation | "document", "README", "API docs" |
+| **test-runner** | Test/lint/build validation | "run tests", "validate", "CI" |
+| **git-executor** | Git operations | "commit", "branch", "push" |
+| **refactorer** | Code structure improvement | "clean up", "technical debt" |
+| **test-architect** | Test strategy design | "test strategy", "coverage" |
 
-- Security vulnerabilities
-- Code quality
-- Test coverage
-- Documentation
-- CI/CD maturity
-- And more...
+### Git Executor Identity
 
-Produces a numerical score (0-100) and prioritized remediation plan.
+The `git-executor` agent is configured with:
+- **Name:** Marc Johnson
+- **Email:** mjohnson518@users.noreply.github.com
+- **Commit Messages:** 3 words or less, NO AI mentions
 
-### claude-code-optimizer
-
-The EPCC (Explore → Plan → Code → Commit) workflow pattern:
-
-- **Explore:** Understand current state
-- **Plan:** Design the solution
-- **Code:** Implement and test
-- **Commit:** Document changes (without executing git)
-
-Also includes context management strategies for long sessions.
-
-### sprint-orchestrator
-
-Task management for iterative development:
-
-- Progress tracking format
-- Blocker documentation
-- Iteration state management
-- Prioritization methodology
+See [agents/ORCHESTRATION.md](./agents/ORCHESTRATION.md) for workflow diagrams.
 
 ---
 
-## Workflows Deep Dive
+## Skills
+
+Seven methodology guides and knowledge domains:
+
+### Core Skills (Existing)
+
+| Skill | Purpose |
+|-------|---------|
+| **production-readiness** | 15-dimension production audit with scoring |
+| **claude-code-optimizer** | EPCC workflow (Explore → Plan → Code → Commit) |
+| **sprint-orchestrator** | Multi-project sprint management |
+
+### New Skills
+
+| Skill | Purpose |
+|-------|---------|
+| **architecture-patterns** | Clean Architecture, DDD, microservices |
+| **performance-optimization** | Profiling, caching, bottleneck identification |
+| **api-design** | REST, GraphQL, and API best practices |
+| **project-analysis** | Codebase analysis and onboarding |
+
+---
+
+## Commands
+
+Four output style modes to adjust Claude's behavior:
+
+| Command | Mode | Use Case |
+|---------|------|----------|
+| `/superpowers:architect` | System design | Architecture decisions, design docs |
+| `/superpowers:rapid` | Fast development | Prototyping, getting things working |
+| `/superpowers:mentor` | Teaching | Learning, explanations, tutorials |
+| `/superpowers:review` | Code review | Quality assessment, PR reviews |
+
+---
+
+## Hooks
+
+Automation triggers for security and file protection:
+
+### Security Scan Hook
+- **Trigger:** Before Write/Edit operations
+- **Action:** Blocks commits containing secrets, API keys, credentials
+- **Patterns:** AWS keys, GitHub tokens, private keys, passwords
+
+### File Protection Hook
+- **Trigger:** Before Write/Edit operations
+- **Action:** Prevents modification of sensitive files
+- **Protected:** `.env`, `.git/`, lock files, `*.pem`, `*.key`
+
+### Configuration
+
+Hooks are configured in `hooks/hooks.json`. To disable:
+
+```json
+{
+  "hooks": [
+    {
+      "name": "security-scan",
+      "enabled": false
+    }
+  ]
+}
+```
+
+Logs are written to `.claude/logs/`.
+
+---
+
+## Workflows
 
 ### Ralph Loop
 
-The official `ralph-wiggum` Claude Code plugin is broken (see [documented issues](./workflows/ralph-loop/README.md#why-the-plugin-doesnt-work)). This bash script provides a working alternative.
+Autonomous iterative development loop - a working alternative to the broken `ralph-wiggum` plugin.
 
-**Key features:**
-- Actually works (unlike the plugin)
-- Ctrl+C to stop (unlike `/cancel-ralph`)
-- No session hijacking
-- Full visibility into what's happening
+**Features:**
+- Timing statistics
+- CLAUDE.md integration
+- Completion promise detection
+- Works with Ctrl+C (unlike the plugin)
+
+**Quick Start:**
+
+```bash
+# Copy files to your project
+cp workflows/ralph-loop/ralph-loop.sh /path/to/your/project/
+cp workflows/ralph-loop/PROMPT_TEMPLATE.md /path/to/your/project/.claude/RALPH_PROMPT.md
+
+# Edit the prompt
+nano .claude/RALPH_PROMPT.md
+
+# Run (50 iterations max)
+./ralph-loop.sh 50
+```
 
 See [workflows/ralph-loop/README.md](./workflows/ralph-loop/README.md) for complete documentation.
 
 ---
 
+## Repository Structure
+
+```
+claude_superpowers/
+├── .claude-plugin/
+│   └── plugin.json              # Plugin manifest
+├── agents/
+│   ├── ORCHESTRATION.md         # Agent pipeline docs
+│   ├── git-executor.md
+│   ├── code-reviewer.md
+│   ├── security-auditor.md
+│   ├── debugger.md
+│   ├── docs-writer.md
+│   ├── test-runner.md
+│   ├── orchestrator.md
+│   ├── refactorer.md
+│   └── test-architect.md
+├── commands/
+│   ├── architect.md
+│   ├── rapid.md
+│   ├── mentor.md
+│   └── review.md
+├── hooks/
+│   ├── hooks.json
+│   └── scripts/
+│       ├── security-scan.py
+│       └── file-protection.sh
+├── skills/
+│   ├── production-readiness/
+│   ├── claude-code-optimizer/
+│   ├── sprint-orchestrator/
+│   ├── architecture-patterns/
+│   ├── performance-optimization/
+│   ├── api-design/
+│   └── project-analysis/
+├── workflows/
+│   └── ralph-loop/
+├── CHANGELOG.md
+├── MIGRATION_PLAN.md
+├── PERMISSIONS.md
+└── README.md
+```
+
+---
+
+## Documentation
+
+| Document | Purpose |
+|----------|---------|
+| [ORCHESTRATION.md](./agents/ORCHESTRATION.md) | Agent pipelines and workflows |
+| [PERMISSIONS.md](./PERMISSIONS.md) | Security model and hook permissions |
+| [CHANGELOG.md](./CHANGELOG.md) | Version history |
+| [skills/README.md](./skills/README.md) | Skills overview and usage |
+
+---
+
 ## Contributing
 
-Found a useful skill or workflow? PRs welcome!
+Found a useful skill, agent, or workflow? PRs welcome!
 
 1. Fork the repo
-2. Add your skill to `skills/` or workflow to `workflows/`
-3. Include a `SKILL.md` (for skills) or `README.md` (for workflows)
+2. Add your contribution
+3. Include appropriate documentation
 4. Submit a PR
+
+### File Formats
+
+**Agents:** Markdown with YAML frontmatter
+```markdown
+---
+name: agent-name
+description: What it does
+tools: [Read, Write, Edit, Bash]
+model: sonnet
+---
+```
+
+**Skills:** `SKILL.md` with YAML frontmatter
+```markdown
+---
+name: skill-name
+description: What it provides
+---
+```
+
+**Commands:** Markdown with YAML frontmatter
+```markdown
+---
+name: superpowers:command-name
+description: What mode it enables
+---
+```
+
+---
+
+## Requirements
+
+- Claude Code v1.0.33+
+- Git (for version control features)
+- Python 3 (for security-scan hook)
+- Bash (for hooks and ralph-loop)
 
 ---
 
@@ -136,4 +283,5 @@ MIT
 
 - **Ralph Wiggum Technique:** [Geoffrey Huntley](https://x.com/GeoffreyHuntley)
 - **Claude Code:** [Anthropic](https://github.com/anthropics)
-- Inspired by **Boris Chern's X post**: https://x.com/bcherny/status/2004887829252317325
+- **CloudAI-X:** Inspired by [claude-workflow](https://github.com/CloudAI-X/claude-workflow)
+- Inspired by **[Boris Chern's X post](https://x.com/bcherny/status/2004887829252317325)**

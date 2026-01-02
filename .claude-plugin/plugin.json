@@ -1,0 +1,163 @@
+{
+  "$schema": "https://claude.ai/schemas/plugin.json",
+  "name": "claude-superpowers",
+  "version": "2.0.0",
+  "description": "Production-ready tools for autonomous development with Claude Code",
+  "author": {
+    "name": "Marc Johnson",
+    "email": "mjohnson518@users.noreply.github.com",
+    "github": "mjohnson518"
+  },
+  "repository": "https://github.com/mjohnson518/claude_superpowers",
+  "license": "MIT",
+  "claude": {
+    "minVersion": "1.0.33"
+  },
+  "components": {
+    "agents": {
+      "directory": "agents",
+      "items": [
+        {
+          "id": "git-executor",
+          "file": "git-executor.md",
+          "description": "Git operations with Marc Johnson identity"
+        },
+        {
+          "id": "code-reviewer",
+          "file": "code-reviewer.md",
+          "description": "Code quality review with 0-10 scoring"
+        },
+        {
+          "id": "security-auditor",
+          "file": "security-auditor.md",
+          "description": "Security vulnerability detection"
+        },
+        {
+          "id": "debugger",
+          "file": "debugger.md",
+          "description": "Systematic bug investigation"
+        },
+        {
+          "id": "docs-writer",
+          "file": "docs-writer.md",
+          "description": "Technical documentation generation"
+        },
+        {
+          "id": "test-runner",
+          "file": "test-runner.md",
+          "description": "Test and build validation"
+        },
+        {
+          "id": "orchestrator",
+          "file": "orchestrator.md",
+          "description": "Complex multi-step task coordination"
+        },
+        {
+          "id": "refactorer",
+          "file": "refactorer.md",
+          "description": "Code structure improvements"
+        },
+        {
+          "id": "test-architect",
+          "file": "test-architect.md",
+          "description": "Test strategy design"
+        }
+      ]
+    },
+    "skills": {
+      "directory": "skills",
+      "items": [
+        {
+          "id": "production-readiness",
+          "directory": "production-readiness",
+          "file": "production-readiness/SKILL.md",
+          "description": "15-dimension production audit"
+        },
+        {
+          "id": "claude-code-optimizer",
+          "directory": "claude-code-optimizer",
+          "file": "SKILL.md",
+          "description": "EPCC workflow pattern"
+        },
+        {
+          "id": "sprint-orchestrator",
+          "directory": "sprint-orchestrator",
+          "file": "SKILL.md",
+          "description": "Multi-project sprint management"
+        },
+        {
+          "id": "architecture-patterns",
+          "directory": "architecture-patterns",
+          "file": "SKILL.md",
+          "description": "Architectural design patterns"
+        },
+        {
+          "id": "performance-optimization",
+          "directory": "performance-optimization",
+          "file": "SKILL.md",
+          "description": "Performance profiling and optimization"
+        },
+        {
+          "id": "api-design",
+          "directory": "api-design",
+          "file": "SKILL.md",
+          "description": "REST and GraphQL API design"
+        },
+        {
+          "id": "project-analysis",
+          "directory": "project-analysis",
+          "file": "SKILL.md",
+          "description": "Codebase analysis and onboarding"
+        }
+      ]
+    },
+    "commands": {
+      "directory": "commands",
+      "namespace": "superpowers",
+      "items": [
+        {
+          "id": "architect",
+          "file": "architect.md",
+          "description": "System design mode"
+        },
+        {
+          "id": "rapid",
+          "file": "rapid.md",
+          "description": "Fast development mode"
+        },
+        {
+          "id": "mentor",
+          "file": "mentor.md",
+          "description": "Teaching and learning mode"
+        },
+        {
+          "id": "review",
+          "file": "review.md",
+          "description": "Code review mode"
+        }
+      ]
+    },
+    "hooks": {
+      "config": "hooks/hooks.json",
+      "scripts": "hooks/scripts"
+    },
+    "workflows": {
+      "directory": "workflows",
+      "items": [
+        {
+          "id": "ralph-loop",
+          "directory": "ralph-loop",
+          "description": "Autonomous iterative development loop"
+        }
+      ]
+    }
+  },
+  "keywords": [
+    "claude-code",
+    "autonomous-development",
+    "code-review",
+    "security-audit",
+    "production-readiness",
+    "workflow-automation"
+  ]
+}
